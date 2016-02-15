@@ -105,6 +105,7 @@ export default Ember.Component.extend(TableSearchableMixin, TableSortableMixin, 
    * @method setup
    */
   setup: on('init', function() {
+    this._setupColumns.call(this);
     this._setupMessages.call(this);
     this._super.call(this);
   }),
