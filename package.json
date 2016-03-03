@@ -1,7 +1,7 @@
 {
   "name": "ember-imdt-table",
-  "version": "0.1.12",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.1.13",
+  "description": "",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -12,11 +12,11 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "https://github.com/Gcampes/ember-table.git",
+  "repository": "https://github.com/imdt/ember-imdt-table.git",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "imdt",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.1.2",
