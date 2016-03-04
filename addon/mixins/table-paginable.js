@@ -14,7 +14,6 @@ const DEFAULT_MESSAGES = {
   next: '&rsaquo;',
   first: '&laquo;',
   last: '&raquo;',
-  summary: '%@ - %@ ~ %@',
 };
 
 export default Ember.Mixin.create({
@@ -157,7 +156,7 @@ export default Ember.Mixin.create({
     const isLastPage = get(this, 'isLastPage');
     const firstIndex = 0 === arrangedContentLength ? 0 : pageSize * (currentPageNumber - 1) + 1;
     const lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
-    return Ember.String.fmt(get(this, 'messages.pagination.summary'), firstIndex, lastIndex, arrangedContentLength);
+    return `${firstIndex} - ${lastIndex} ~ ${arrangedContentLength}`;
   }),
 
   /**
