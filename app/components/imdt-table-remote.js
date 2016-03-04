@@ -1,0 +1,1 @@
+export { default } from 'ember-imdt-table/components/imdt-table-remote';
