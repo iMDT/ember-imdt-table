@@ -1,22 +1,26 @@
 <ul class="pagination imdt-table-pagination-simple pull-right">
-  <li class="first {{unless gotoBackEnabled 'disabled'}}">
-    <span {{action "gotoFirstPage"}}>
-      {{{messages.pagination.first}}}
-    </span>
-  </li>
-  <li class="previous {{unless gotoBackEnabled 'disabled'}}">
-    <span {{action "gotoPrevPage"}}>
-      {{{messages.pagination.prev}}}
-    </span>
-  </li>
-  <li class="next {{unless gotoForwardEnabled 'disabled'}}">
-    <span {{action "gotoNextPage"}}>
-      {{{messages.pagination.next}}}
-    </span>
-  </li>
-  <li class="last {{unless gotoForwardEnabled 'disabled'}}">
-    <span {{action "gotoLastPage"}}>
-      {{{messages.pagination.last}}}
-    </span>
-  </li>
+  {{#if gotoBackEnabled}}
+    <li class="first">
+      <span {{action "gotoFirstPage"}}>
+        {{{messages.pagination.first}}}
+      </span>
+    </li>
+    <li class="previous">
+      <span {{action "gotoPrevPage"}}>
+        {{{messages.pagination.prev}}}
+      </span>
+    </li>
+  {{/if}}
+  {{#if gotoForwardEnabled}}
+    <li class="next">
+      <span {{action "gotoNextPage"}}>
+        {{{messages.pagination.next}}}
+      </span>
+    </li>
+    <li class="last">
+      <span {{action "gotoLastPage"}}>
+        {{{messages.pagination.last}}}
+      </span>
+    </li>
+  {{/if}}
 </ul>

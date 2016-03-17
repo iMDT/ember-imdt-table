@@ -51,6 +51,13 @@ export default Ember.Mixin.create({
   currentPageNumber: 1,
 
   /**
+   * @type {number}
+   */
+  currentLength: computed('arrangedContent.[]', function() {
+    return get(this, 'arrangedContent.length');
+  }),
+
+  /**
    * Pagination template
    * @type {string}
    */
@@ -68,15 +75,15 @@ export default Ember.Mixin.create({
    */
   numericPaginationTemplate: 'components/imdt-table/pagination/numeric',
 
-  shouldDisplayPagination: computed('arrangedContent.[]', 'pageSize', function(){
-    return get(this, 'arrangedContent.length') > get(this, 'pageSize');
+  shouldDisplayPagination: computed('currentLength', 'pageSize', function(){
+    return get(this, 'currentLength') > get(this, 'pageSize');
   }),
 
   /**
    * Content of the current table page
    * @type {Ember.Object[]}
    */
-  visibleContent: computed('arrangedContent.[]', 'pageSize', 'currentPageNumber', function() {
+  visibleContent: computed('currentLength', 'pageSize', 'currentPageNumber', function() {
     const {
       arrangedContent,
       pageSize,
@@ -93,8 +100,8 @@ export default Ember.Mixin.create({
    * Number of pages
    * @type {number}
    */
-  pagesCount: computed('arrangedContent.[]', 'pageSize', function() {
-    const pagesCount = get(this, 'arrangedContent.length') / get(this, 'pageSize');
+  pagesCount: computed('currentLength', 'pageSize', function() {
+    const pagesCount = get(this, 'currentLength') / get(this, 'pageSize');
     return (0 === pagesCount % 1) ? pagesCount : (Math.floor(pagesCount) + 1);
   }),
 
@@ -103,7 +110,7 @@ export default Ember.Mixin.create({
    * Used if <code>useNumericPagination</code> is true
    * @type {{isLink: boolean, label: string, isActive: boolean}[]}
    */
-  visiblePageNumbers: computed('arrangedContent.[]', 'pagesCount', 'currentPageNumber', function() {
+  visiblePageNumbers: computed('currentLength', 'pagesCount', 'currentPageNumber', function() {
     const {
       pagesCount,
       currentPageNumber
@@ -132,10 +139,10 @@ export default Ember.Mixin.create({
     return pagesToDisplay;
   }),
 
-  isLastPage: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', function(){
+  isLastPage: computed('pageSize', 'currentPageNumber', 'currentLength', function(){
     const pageSize = get(this, 'pageSize');
     const currentPageNumber = get(this, 'currentPageNumber');
-    const arrangedContentLength = get(this, 'arrangedContent.length');
+    const arrangedContentLength = get(this, 'currentLength');
     if(pageSize * currentPageNumber >= arrangedContentLength){
       return true;
     }
@@ -147,12 +154,12 @@ export default Ember.Mixin.create({
    * @use summaryTemplate
    * @type {string}
    */
-  summary: computed('pageSize', 'currentPageNumber', 'arrangedContent.[]', function () {
+  summary: computed('pageSize', 'currentPageNumber', 'currentLength', function () {
     const {
       currentPageNumber,
       pageSize
     } = getProperties(this, 'currentPageNumber', 'pageSize');
-    const arrangedContentLength = get(this, 'arrangedContent.length');
+    const arrangedContentLength = get(this, 'currentLength');
     const isLastPage = get(this, 'isLastPage');
     const firstIndex = 0 === arrangedContentLength ? 0 : pageSize * (currentPageNumber - 1) + 1;
     const lastIndex = isLastPage ? arrangedContentLength : currentPageNumber * pageSize;
@@ -216,7 +223,7 @@ export default Ember.Mixin.create({
 
       var currentPageNumber = get(this, 'currentPageNumber');
       var pageSize = get(this, 'pageSize');
-      var arrangedContentLength = get(this, 'arrangedContent.length');
+      var arrangedContentLength = get(this, 'currentLength');
       if (arrangedContentLength > pageSize * (currentPageNumber - 1)) {
         this.incrementProperty('currentPageNumber');
       }

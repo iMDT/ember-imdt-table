@@ -1,9 +1,11 @@
 <ul class="imdt-table-pagination-numeric pull-right">
-  <li class="previous {{unless goToBackEnabled 'disabled'}}">
-    <span {{action "gotoPrevPage"}}>
-      {{{messages.pagination.prev}}}
-    </span>
-  </li>
+  {{#if goToBackEnabled}}
+    <li class="previous">
+      <span {{action "gotoPrevPage"}}>
+        {{{messages.pagination.prev}}}
+      </span>
+    </li>
+  {{/if}}
 
   {{#each visiblePageNumbers.prevPages as |page|}}
     <li>
@@ -22,10 +24,12 @@
       </span>
     </li>
   {{/each}}
-
-  <li class="next {{unless gotoForwardEnabled 'disabled'}}">
-    <span {{action "gotoNextPage"}}>
-      {{{messages.pagination.next}}}
-    </span>
-  </li>
+  
+  {{#if gotoForwardEnabled}}
+    <li class="next">
+      <span {{action "gotoNextPage"}}>
+        {{{messages.pagination.next}}}
+      </span>
+    </li>
+  {{/if}}
 </ul>

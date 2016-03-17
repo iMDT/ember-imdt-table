@@ -13,6 +13,11 @@ module.exports = function(environment) {
       }
     },
 
+    API: {
+      baseURL: 'http://10.30.10.145:8092',
+      namespace: 'xxx'
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created

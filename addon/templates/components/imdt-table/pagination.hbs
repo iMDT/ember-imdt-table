@@ -2,7 +2,7 @@
   <div class="imdt-table-pagination-page-size col-sm-1">
     <select onchange={{action (mut pageSize) value="target.value"}}>
       {{#each pageSizeValues as |size|}}
-        <option value={{size}} selected={{eq size pageSize}}>{{size}}</option>
+        <option value={{size}} selected={{is-equal size pageSize}}>{{size}}</option>
       {{/each}}
     </select>
   </div>
