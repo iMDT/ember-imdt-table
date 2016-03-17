@@ -1,6 +1,12 @@
-{{#if searchable}}
-  {{partial searchTemplate}}
-{{/if}}
+<div class="imdt-table-widgets">
+  <div class="imdt-table-widgets-outlet">
+    {{outlet}}
+  </div>
+
+  {{#if searchable}}
+    {{partial searchTemplate}}
+  {{/if}}
+</div>
 
 <table class={{tableClassNames}}>
   <thead>
