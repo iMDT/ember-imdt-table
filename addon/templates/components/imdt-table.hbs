@@ -1,6 +1,6 @@
 <div class="imdt-table-widgets">
   <div class="imdt-table-widgets-outlet">
-    {{outlet}}
+    {{yield this}}
   </div>
 
   {{#if searchable}}
@@ -48,9 +48,6 @@
       <tr><td colspan={{processedColumns.length}}>{{{messages.emptyTable}}}</td></tr>
     {{/if}}
   </tbody>
-  <tfoot>
-    {{yield this}}
-  </tfoot>
 </table>
 
 {{#if paginable}}
