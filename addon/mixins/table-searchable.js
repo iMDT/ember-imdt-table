@@ -109,6 +109,7 @@ export default Ember.Mixin.create({
    */
   searchTermDidChange: observer('searchTerm', function() {
     set(this, 'currentPageNumber', 1);
+    this.sendAction('searchTermChangeAction', this.get('processedContent'), this.get('searchTerm'));
   }),
 
   /**
