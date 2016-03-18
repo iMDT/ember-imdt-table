@@ -66,7 +66,7 @@ export default Ember.Component.extend(TableSearchableMixin, TableSortableMixin, 
 
   processedContentDidChange: Ember.observer('processedContent.[]', function() {
     this.sendAction('visibleContentChangeAction', this.get('processedContent'));
-  }),
+  }).on('init'),
 
   /**
    * @typedef {
