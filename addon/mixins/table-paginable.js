@@ -176,6 +176,14 @@ export default Ember.Mixin.create({
   }),
 
   /**
+   * Send action if the current page change
+   * @method currentPageDidChange
+   */
+  currentPageDidChange: observer('currentPageNumber', function() {
+    this.sendAction('currentPageChangeAction', this.get('processedContent'), this.get('currentPageNumber'));
+  }),
+
+  /**
    * Are buttons "Back" and "First" enabled
    * @type {boolean}
    */
