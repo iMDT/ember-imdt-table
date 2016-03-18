@@ -1,16 +1,16 @@
-<div class="imdt-table-pagination-widget row">
-  <div class="imdt-table-pagination-page-size col-sm-1">
+<div class="imdt-table-pagination-widget">
+  <div class="imdt-table-pagination-page-size">
     <select onchange={{action (mut pageSize) value="target.value"}}>
       {{#each pageSizeValues as |size|}}
         <option value={{size}} selected={{is-equal size pageSize}}>{{size}}</option>
       {{/each}}
     </select>
   </div>
-  <div class="imdt-table-pagination-summary col-sm-2">
+  <div class="imdt-table-pagination-summary">
     {{{summary}}}
   </div>
   {{#if shouldDisplayPagination}}
-  <nav class="imdt-table-navigation col-sm-6 col-sm-offset-3">
+  <nav class="imdt-table-navigation">
     {{#if useSimplePagination}}
       {{partial simplePaginationTemplate}}
     {{else}}
