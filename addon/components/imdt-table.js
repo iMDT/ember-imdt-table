@@ -64,6 +64,12 @@ export default Ember.Component.extend(TableSearchableMixin, TableSortableMixin, 
     return get(this, 'content');
   }),
 
+  processedContentDidChange: Ember.observer('processedContent.[]', function() {
+    if(this.attrs.processedContent) {
+      this.attrs.processedContent.update(this.get('processedContent'));
+    }
+  }),
+
   /**
    * @typedef {
    *  Object {
@@ -106,6 +112,10 @@ export default Ember.Component.extend(TableSearchableMixin, TableSortableMixin, 
    * @method setup
    */
   setup: on('init', function() {
+    if(this.attrs.processedContent) {
+      this.attrs.processedContent.update(this.get('processedContent'));
+    }
+
     this._setupColumns.call(this);
     this._setupMessages.call(this);
     this._super.call(this);
