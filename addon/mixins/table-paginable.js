@@ -172,6 +172,7 @@ export default Ember.Mixin.create({
    */
   pageSizeDidChange: observer('pageSize', function() {
     set(this, 'currentPageNumber', 1);
+    this.sendAction('pageSizeChangeAction', this.get('processedContent'));
   }),
 
   /**
