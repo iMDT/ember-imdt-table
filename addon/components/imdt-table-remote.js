@@ -3,6 +3,7 @@ import DS from 'ember-data';
 import ImdtTableComponent from './imdt-table';
 
 const {
+  set,
   on,
   getProperties,
   computed,
@@ -20,7 +21,7 @@ export default ImdtTableComponent.extend({
 
   processedContent: new A([]),
 
-  content: computed('queryParams.page.limit', 'queryParams.page.offset', function() {
+  content: computed('queryParams.page.limit', 'queryParams.page.offset', 'queryParams.sort', function() {
     const {
       store,
       modelName,
@@ -54,7 +55,7 @@ export default ImdtTableComponent.extend({
       paginable,
       sortable,
       searchable
-    } = getProperties(this, 'paginable', 'sortable', 'searchable')
+    } = getProperties(this, 'paginable', 'sortable', 'searchable');
 
     if(paginable) {
       this._setupPaginationQueryParams();
@@ -91,5 +92,69 @@ export default ImdtTableComponent.extend({
       offset: startIndex,
       limit: pageSize
     });
+  },
+
+  /**
+   *
+   * SORTING
+   * ===============================
+   */
+  sortingDidChange: observer('sortProperties', function() {
+    this.set('queryParams.sort', this._parseSortProps(this.get('modelName'), this.get('sortProperties')))
+  }),
+
+  _parseSortProps(modelName, query) {
+    const adapter = Ember.getOwner(this).lookup('adapter:application');
+    const pathForType = adapter.pathForType(modelName);
+    const serializer = Ember.getOwner(this).lookup('serializer:application');
+
+    let sortProps = {
+      sortOptions: {}
+    };
+    sortProps.sortOptions[pathForType] = [];
+
+    let property, direction;
+    let sortOptions = [];
+    if(typeof query === 'string') {
+      if(query.indexOf(':') !== -1) {
+        [property, direction] = query.split(':');
+        sortOptions.push({
+          property: property,
+          direction: direction
+        });
+      } else {
+        sortOptions.push({
+          property: query,
+          direction: 'asc'
+        });
+      }
+    }
+    else {
+      query.forEach((prop, i) => {
+        [property, direction] = prop.split(':');
+        sortOptions.push({
+          property: property,
+          direction: direction,
+          index: i
+        });
+      });
+    }
+
+    sortOptions.forEach((sort, i) => {
+      set(sortProps.sortOptions[pathForType], i.toString(), {});
+      if(sort.property.indexOf('.') !== -1) {
+        sort.property.split('.').reduce((o, s) => {
+          if(!o[s]){
+            o[s] = {};
+          }
+
+          return o[s];
+        }, sortProps.sortOptions[pathForType][i]);
+      }
+
+      set(sortProps.sortOptions[pathForType][i], serializer.keyForAttribute(sort.property.toString()), sort.direction);
+    });
+
+    return sortProps.sortOptions;
   }
 });
