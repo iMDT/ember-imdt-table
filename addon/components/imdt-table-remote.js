@@ -21,6 +21,10 @@ export default ImdtTableComponent.extend({
 
   processedContent: new A([]),
 
+  reloadDidChange: observer('reload', function() {
+    set(this, 'currentPageNumber', 1);
+  }),
+
   content: computed('queryParams.page.limit', 'queryParams.page.offset', 'queryParams.sort', function() {
     const {
       store,
@@ -100,61 +104,6 @@ export default ImdtTableComponent.extend({
    * ===============================
    */
   sortingDidChange: observer('sortProperties', function() {
-    this.set('queryParams.sort', this._parseSortProps(this.get('modelName'), this.get('sortProperties')))
+    this.set('queryParams.sort', this.get('sortProperties'));
   }),
-
-  _parseSortProps(modelName, query) {
-    const adapter = Ember.getOwner(this).lookup('adapter:application');
-    const pathForType = adapter.pathForType(modelName);
-    const serializer = Ember.getOwner(this).lookup('serializer:application');
-
-    let sortProps = {
-      sortOptions: {}
-    };
-    sortProps.sortOptions[pathForType] = [];
-
-    let property, direction;
-    let sortOptions = [];
-    if(typeof query === 'string') {
-      if(query.indexOf(':') !== -1) {
-        [property, direction] = query.split(':');
-        sortOptions.push({
-          property: property,
-          direction: direction
-        });
-      } else {
-        sortOptions.push({
-          property: query,
-          direction: 'asc'
-        });
-      }
-    }
-    else {
-      query.forEach((prop, i) => {
-        [property, direction] = prop.split(':');
-        sortOptions.push({
-          property: property,
-          direction: direction,
-          index: i
-        });
-      });
-    }
-
-    sortOptions.forEach((sort, i) => {
-      set(sortProps.sortOptions[pathForType], i.toString(), {});
-      if(sort.property.indexOf('.') !== -1) {
-        sort.property.split('.').reduce((o, s) => {
-          if(!o[s]){
-            o[s] = {};
-          }
-
-          return o[s];
-        }, sortProps.sortOptions[pathForType][i]);
-      }
-
-      set(sortProps.sortOptions[pathForType][i], serializer.keyForAttribute(sort.property.toString()), sort.direction);
-    });
-
-    return sortProps.sortOptions;
-  }
 });
