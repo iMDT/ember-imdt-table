@@ -39,10 +39,6 @@ export default ImdtTableComponent.extend({
           this.set('processedContent', result);
           return result;
         })
-        .catch((reason) => {
-
-          throw reason;
-        })
     });
   }),
 
