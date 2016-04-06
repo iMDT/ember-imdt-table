@@ -25,7 +25,7 @@ export default ImdtTableComponent.extend({
     set(this, 'currentPageNumber', 1);
   }),
 
-  content: computed('queryParams.page.limit', 'queryParams.page.offset', 'queryParams.sort', function() {
+  content: computed('reload', 'queryParams.page.limit', 'queryParams.page.offset', 'queryParams.sort', function() {
     const {
       store,
       modelName,
