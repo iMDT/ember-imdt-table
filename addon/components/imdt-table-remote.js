@@ -120,7 +120,8 @@ export default ImdtTableComponent.extend({
       value: searchTerm
     });
 
-    this.incrementProperty('reload');
+    Ember.run.cancel(this.get('reloadTimer'));
+    this.set('reloadTimer', Ember.run.later(this, () => this.incrementProperty('reload'), 300));
   })
 
 });
