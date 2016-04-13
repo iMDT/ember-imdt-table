@@ -57,7 +57,7 @@ export default ImdtTableComponent.extend({
       searchable
     } = getProperties(this, 'paginable', 'sortable', 'searchable');
 
-    if(paginable) {
+    if (paginable) {
       this._setupPaginationQueryParams();
     }
   }),
@@ -102,4 +102,25 @@ export default ImdtTableComponent.extend({
   sortingDidChange: observer('sortProperties', function() {
     this.set('queryParams.sort', this.get('sortProperties'));
   }),
+
+  /**
+   *
+   * Searching
+   * ===============================
+   */
+  searchTermDidChange: observer('searchTerm', function() {
+    let searchTerm = this.get('searchTerm');
+    if(!this.get('queryParams.filter')) {
+      this.set('queryParams', {});
+      this.set('queryParams.filter', {});
+    }
+    this.set('queryParams.filter.compAll', {
+      comparator: 'ct',
+      transform: 'lc',
+      value: searchTerm
+    });
+
+    this.incrementProperty('reload');
+  })
+
 });
