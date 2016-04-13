@@ -1,6 +1,6 @@
 {
   "name": "ember-imdt-table",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "",
   "directories": {
     "doc": "doc",
@@ -12,12 +12,11 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/imdt/ember-imdt-table.git",
   "engines": {
     "node": ">= 0.10.0"
   },
   "author": "iMDT <contato@imdt.com.br>",
-  "repository": "https://github.com/imdt/ember-imdt-table.git",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
