@@ -117,7 +117,7 @@ export default ImdtTableComponent.extend({
     this.set('queryParams.filter.compAll', {
       comparator: 'ct',
       transform: 'lc',
-      value: searchTerm
+      value: searchTerm.toLowerCase()
     });
 
     Ember.run.cancel(this.get('reloadTimer'));
