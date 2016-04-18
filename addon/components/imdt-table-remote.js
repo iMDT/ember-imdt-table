@@ -17,7 +17,7 @@ export default ImdtTableComponent.extend({
 
   modelName: '',
   queryParams: {},
-  meta: {},
+  meta: Ember.Object.create({}),
 
   processedContent: new A([]),
 
