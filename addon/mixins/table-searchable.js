@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import removeDiacritics from '../utils/remove-diacritics';
 
 const {
   A,
@@ -28,6 +29,12 @@ export default Ember.Mixin.create({
   searchIgnoreCase: true,
 
   /**
+   * Determines if filtering should ignore diacritics
+   * @type {boolean}
+   */
+  searchIgnoreDiacritics: true,
+
+  /**
    * Template with the search field
    * @type {string}
    */
@@ -53,8 +60,9 @@ export default Ember.Mixin.create({
       processedColumns,
       content,
       cachedContent,
-      searchIgnoreCase
-    } = getProperties(this, 'processedColumns', 'content', 'cachedContent', 'searchIgnoreCase');
+      searchIgnoreCase,
+      searchIgnoreDiacritics,
+    } = getProperties(this, 'processedColumns', 'content', 'cachedContent', 'searchIgnoreCase', 'searchIgnoreDiacritics');
 
     let searchTerm = get(this, 'searchTerm');
 
@@ -90,6 +98,12 @@ export default Ember.Mixin.create({
             cellValue = cellValue.toLowerCase();
             searchTerm = searchTerm.toLowerCase();
           }
+
+          if (searchIgnoreDiacritics) {
+            cellValue = removeDiacritics(cellValue);
+            searchTerm = removeDiacritics(searchTerm);
+          }
+
           return -1 !== cellValue.indexOf(searchTerm);
         }
 
