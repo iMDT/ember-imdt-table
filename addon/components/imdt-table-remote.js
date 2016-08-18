@@ -111,7 +111,7 @@ export default ImdtTableComponent.extend({
   searchTermDidChange: observer('searchTerm', function() {
     let searchTerm = this.get('searchTerm');
     if(!this.get('queryParams.filter')) {
-      this.set('queryParams', {});
+      // this.set('queryParams', {}); // REMOVE LIMITS DA REMOTE
       this.set('queryParams.filter', {});
     }
     this.set('queryParams.filter.compAll', {

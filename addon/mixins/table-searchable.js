@@ -55,7 +55,7 @@ export default Ember.Mixin.create({
 
   contentObserverToClearCache: Ember.observer('content.[]', function(){
     this.set('cachedContent', new A([]));
-    this.incrementProperty('reload');
+    // this.incrementProperty('reload');  LOOP INFINITO NA REMOTE
   }),
 
   filteredContent: computed('searchTerm', 'content.[]', 'reload', function() {
