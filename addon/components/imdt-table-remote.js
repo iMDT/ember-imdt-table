@@ -116,7 +116,7 @@ export default ImdtTableComponent.extend({
     }
     this.set('queryParams.filter.compAll', {
       comparator: 'ct',
-      transform: 'lc',
+      transform: 'slc',
       value: searchTerm.toLowerCase()
     });
 
