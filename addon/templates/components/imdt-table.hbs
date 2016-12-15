@@ -17,7 +17,11 @@
                   {{if column.isAsc 'sort-asc'}}
                   {{if column.isDesc 'sort-desc'}}
                   {{column.className}}" onclick={{action "sort" column}}>
-            {{column.columnTitle}}
+            {{#if column.isHtml}}
+              {{{column.columnTitle}}}
+            {{else}}
+              {{column.columnTitle}}
+            {{/if}}
           </th>
         {{else}}
           <th class="{{column.className}}"}}>
