@@ -69,7 +69,12 @@ export default Ember.Mixin.create({
       const newSorting = sortMap[currentSorting];
 
       if (column.customSort) {
-        set(this, 'sortProperties', column.customSort(sortProperties, sortMap, currentSorting));
+        const newSort = column.customSort(sortProperties, column);
+        if (!Ember.isArray(newSort)) {
+          console.error('For a custom sort you MUST return an array of sort proerties')
+          return;
+        }
+        set(this, 'sortProperties', newSort);
         return;
       }
 
