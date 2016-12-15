@@ -68,6 +68,11 @@ export default Ember.Mixin.create({
       const currentSorting = get(column, 'sortDirection');
       const newSorting = sortMap[currentSorting];
 
+      if (column.customSort) {
+        set(this, 'sortProperties', column.customSort(sortProperties, sortMap, currentSorting));
+        return;
+      }
+
       let newSortProperties = new A([]);
 
       if (e.ctrlKey) {
