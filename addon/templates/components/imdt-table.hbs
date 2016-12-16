@@ -34,7 +34,7 @@
   <tbody>
     {{#if processedContent.length}}
       {{#each processedContent as |record|}}
-        <tr>
+        <tr onclick={{action "rowclick" record}}>
           {{#each processedColumns as |column|}}
             {{#if column.isVisible}}
               <td class={{column.className}}>

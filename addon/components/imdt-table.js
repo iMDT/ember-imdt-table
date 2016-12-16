@@ -92,7 +92,6 @@ export default Ember.Component.extend(TableSearchableMixin, TableSortableMixin, 
    * @type {ColumnDefinition[]}
    */
   processedColumns: Ember.computed('columns', 'columns.[]', function(){
-    console.log("Mudou");
     let processedColumns = new A(get(this, 'columns').map(column => {
       let c = ColumnDefinition.create(column);
 
@@ -156,5 +155,13 @@ export default Ember.Component.extend(TableSearchableMixin, TableSortableMixin, 
     sendAction () {
       this.sendAction.apply(this, arguments);
     },
+
+    rowClick (record) {
+      const onRowClick = this.get('onRowClick');
+
+      if (onRowClick) {
+        onRowClick(record);
+      }
+    }
   }
 });
