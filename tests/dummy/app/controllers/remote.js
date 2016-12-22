@@ -1,21 +1,25 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  modelName: 'dummy',
+  modelName: 'feriado',
+  sort: new Ember.A(['dtFeriado:asc']),
   columns: new Ember.A([{
-    contentPath: 'id',
-    columnTitle: 'ID',
-    isSortable: false,
-    isSearchable: false,
-  }, {
     contentPath: 'nome',
-    columnTitle: 'Name'
-  },
-  {
-    contentPath: 'template',
-    columnTitle: 'Template',
-    template: 'custom/button'
-  }
-]),
-  sort: new Ember.A(['name:desc']),
+    columnTitle: 'Nome do Feriado'
+  }, {
+    contentPath: 'dtFeriadoFormatted',
+    columnTitle: 'Data',
+    sortPath: 'dtFeriado',
+  }, {
+    contentPath: 'todoAnoFormatted',
+    columnTitle: 'Repete na mesma data todo ano?',
+    sortPath: 'todoAno',
+  }, {
+    contentPath: 'modificacaoFormatted',
+    columnTitle: 'Data do Cadastro',
+    sortPath: 'modificacao',
+  }, {
+    contentPath: 'usuario',
+    columnTitle: 'Cadastrado por'
+  },])
 });

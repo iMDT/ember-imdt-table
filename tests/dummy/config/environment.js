@@ -14,8 +14,8 @@ module.exports = function(environment) {
     },
 
     API: {
-      baseURL: 'http://10.30.10.145:8092',
-      namespace: 'xxx'
+      baseURL: 'http://localhost:8094',
+      namespace: 'api',
     },
 
     APP: {

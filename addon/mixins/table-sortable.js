@@ -8,9 +8,15 @@ const {
   observer,
   isNone,
   A,
+  on,
 } = Ember;
 
 export default Ember.Mixin.create({
+  setup: on('init', function() {
+    this._super.call(this);
+    this.notifyPropertyChange('sortProperties');
+  }),
+  
   sortable: true,
 
   /**

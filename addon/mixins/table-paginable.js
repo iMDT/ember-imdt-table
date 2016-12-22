@@ -7,6 +7,7 @@ const {
   computed,
   observer,
   A,
+  on,
 } = Ember;
 
 const DEFAULT_MESSAGES = {
@@ -17,6 +18,11 @@ const DEFAULT_MESSAGES = {
 };
 
 export default Ember.Mixin.create({
+  setup: on('init', function() {
+    this._super.call(this);
+    this.notifyPropertyChange('currentPageNumber');
+  }),
+
   /**
    * Defines if the table should use pagination
    * @type {number}

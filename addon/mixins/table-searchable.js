@@ -7,7 +7,8 @@ const {
   get,
   getProperties,
   computed,
-  observer
+  observer,
+  on,
 } = Ember;
 
 const DEFAULT_MESSAGES = {
@@ -15,6 +16,11 @@ const DEFAULT_MESSAGES = {
 };
 
 export default Ember.Mixin.create({
+  setup: on('init', function() {
+    this._super.call(this);
+    this.notifyPropertyChange('searchTerm');
+  }),
+
   searchable: true,
 
   /**

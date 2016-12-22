@@ -50,16 +50,6 @@ export default ImdtTableComponent.extend({
    */
   setup: on('init', function() {
     this._super.call(this);
-
-    const {
-      paginable,
-      sortable,
-      searchable
-    } = getProperties(this, 'paginable', 'sortable', 'searchable');
-
-    if (paginable) {
-      this._setupPaginationQueryParams();
-    }
   }),
 
   /*
@@ -110,6 +100,11 @@ export default ImdtTableComponent.extend({
    */
   searchTermDidChange: observer('searchTerm', function() {
     let searchTerm = this.get('searchTerm');
+
+    if(!this.get(searchTerm, 'length')) {
+      return;
+    }
+
     if(!this.get('queryParams.filter')) {
       // this.set('queryParams', {}); // REMOVE LIMITS DA REMOTE
       this.set('queryParams.filter', {});
