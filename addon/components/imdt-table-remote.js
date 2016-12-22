@@ -99,9 +99,9 @@ export default ImdtTableComponent.extend({
    * ===============================
    */
   searchTermDidChange: observer('searchTerm', function() {
-    let searchTerm = this.get('searchTerm');
-
-    if(!this.get(searchTerm, 'length')) {
+    let searchTerm = this.get('searchTerm').trim();
+    
+    if(!searchTerm.length) {
       return;
     }
 
