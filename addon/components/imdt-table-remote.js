@@ -100,10 +100,6 @@ export default ImdtTableComponent.extend({
    */
   searchTermDidChange: observer('searchTerm', function() {
     let searchTerm = this.get('searchTerm').trim();
-    
-    if(!searchTerm.length) {
-      return;
-    }
 
     if(!this.get('queryParams.filter')) {
       // this.set('queryParams', {}); // REMOVE LIMITS DA REMOTE
